@@ -70,13 +70,7 @@ namespace HealthCare.IRepository
 
         }
 
-        public interface ISRepository<T> where T : class
-        {
-            IEnumerable<T> GetAll();
-            Task<T> GetById(int id);
-            Task Create(T obj); Task<Specialization> Delete(int id);
-        }
-
+       
 
     }
 }

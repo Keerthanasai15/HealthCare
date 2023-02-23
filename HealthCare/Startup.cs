@@ -53,7 +53,7 @@ namespace HealthCare
             services.AddScoped<IRepositoryDoctor<Doctor>, DoctorRepository>();
             services.AddScoped<IAPRepository<Appointment>,AppointmentRepository>();
             services.AddScoped<IRepositoryADR<ApplicationDetails>, ApplicationDetailsRepository>();
-            services.AddScoped<ISRepository<Specialization>, SpecializationRepository>();   
+             
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

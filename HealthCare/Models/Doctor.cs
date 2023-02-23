@@ -26,6 +26,7 @@ namespace HealthCare.Models
         public string? Password { get; set; }
         // [Required]
 
+      
     }
     public class DoctorLoginModel
     {

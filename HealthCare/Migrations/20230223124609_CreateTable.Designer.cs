@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealthCare.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230223123056_CreateTable")]
+    [Migration("20230223124609_CreateTable")]
     partial class CreateTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -149,11 +149,16 @@ namespace HealthCare.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SpecializationId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DoctorId");
+
+                    b.HasIndex("SpecializationId");
 
                     b.ToTable("Doctors");
                 });
@@ -215,6 +220,17 @@ namespace HealthCare.Migrations
                         .IsRequired();
 
                     b.Navigation("AppointmentStatus");
+                });
+
+            modelBuilder.Entity("HealthCare.Models.Doctor", b =>
+                {
+                    b.HasOne("HealthCare.Models.Specialization", "Specialization")
+                        .WithMany()
+                        .HasForeignKey("SpecializationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Specialization");
                 });
 #pragma warning restore 612, 618
         }

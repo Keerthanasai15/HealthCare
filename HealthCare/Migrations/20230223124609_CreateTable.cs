@@ -56,24 +56,6 @@ namespace HealthCare.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Doctors",
-                columns: table => new
-                {
-                    DoctorId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DoctorName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DoctorPhNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DoctorEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsApproved = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Doctors", x => x.DoctorId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Patients",
                 columns: table => new
                 {
@@ -126,10 +108,40 @@ namespace HealthCare.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Doctors",
+                columns: table => new
+                {
+                    DoctorId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DoctorName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DoctorPhNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DoctorEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SpecializationId = table.Column<int>(type: "int", nullable: false),
+                    IsApproved = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Doctors", x => x.DoctorId);
+                    table.ForeignKey(
+                        name: "FK_Doctors_Specializations_SpecializationId",
+                        column: x => x.SpecializationId,
+                        principalTable: "Specializations",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_ApplicationDetails_AppointmentStatusId",
                 table: "ApplicationDetails",
                 column: "AppointmentStatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Doctors_SpecializationId",
+                table: "Doctors",
+                column: "SpecializationId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -150,10 +162,10 @@ namespace HealthCare.Migrations
                 name: "Patients");
 
             migrationBuilder.DropTable(
-                name: "Specializations");
+                name: "AppointmentsStatus");
 
             migrationBuilder.DropTable(
-                name: "AppointmentsStatus");
+                name: "Specializations");
         }
     }
 }
