@@ -51,6 +51,9 @@ namespace HealthCare
             services.AddScoped<IPRepository<Patient>, PatientRepository>();
             services.AddScoped<IARepository<Admin>, AdminRepository>();
             services.AddScoped<IRepositoryDoctor<Doctor>, DoctorRepository>();
+            services.AddScoped<IAPRepository<Appointment>,AppointmentRepository>();
+            services.AddScoped<IRepositoryADR<ApplicationDetails>, ApplicationDetailsRepository>();
+            services.AddScoped<ISRepository<Specialization>, SpecializationRepository>();   
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

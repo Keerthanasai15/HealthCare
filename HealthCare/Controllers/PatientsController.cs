@@ -110,13 +110,13 @@ namespace HealthCare.Controllers
 
         public ActionResult Login([FromBody] PatientLoginModel patientLoginModel)
         {
-            var currentCustomer = _context.Patients.FirstOrDefault(x => x.UserName == patientLoginModel.UserName && x.PatientPassword == patientLoginModel.PatientPassword);
-            if (currentCustomer == null)
+            var currentPatient = _context.Patients.FirstOrDefault(x => x.UserName == patientLoginModel.UserName && x.PatientPassword == patientLoginModel.PatientPassword);
+            if (currentPatient == null)
             {
                 return NotFound("Invalid UserName or Password");
 
             }
-            var token = GenerateToken(currentCustomer);
+            var token = GenerateToken(currentPatient);
             if (token == null)
             {
                 return NotFound("Invalid Credentials");
